@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Este es mi primer sitio web con georeferencia">
+    <!--Esto es una prueba de mis comentarios -->
+    <meta name="keywords" content="html, css, javascript, programación, paginas web">
+    <!--Esto es una prueba de mis comentarios -->
+    <meta name="author" content="Luis Migueel.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps JavaScript API</title>
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>JavaScript Geolocation API</h2>
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()">Try It</button>
+
+    <p id="demo"></p>
+
+    <script>
+        const x = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+        
+    </script>
+
+    <div id="map"> <!-- espacio encargado de albergar nuestro mapa. -->
+    </div>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCKiIqCdZGrVxx06LSbe7uG3zXOq1Cz5k&callback=initMap">
+        </script>
+
+    <script>
+        const latitude = parseFloat(position.coords.latitude.value); // Obtenemos la latitud de la geolocalización
+        const longitude = parseFloat(position.coords.longitude.value); // Obtenemos la longitud de la geolocalización
+
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: latitude, lng: longitude },
+                zoom: 13
+            }); // Inicializamos el mapa con un centro y un nivel de zoom.
+            var marker = new google.maps.Marker({
+                position: { lat:latitude,  lng: ongitude }, // Usamos las coordenadas obtenidas de la geolocalización.
+                map: map,
+                title: 'Acuario de Gijón'
+            }); // Añadimos un marcador al mapa con una posición y un título.
+        }
+    </script>
+</body>
+
+</html>
